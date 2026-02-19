@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Libro;
 use Illuminate\Http\Request;
-use App\Http\Resources\LibroResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class LibroController extends Controller
 {
@@ -27,6 +27,6 @@ class LibroController extends Controller
         $libros = $query->get();
 
         // Usar API Resource para mapear
-        return LibroResource::collection($libros);
+        return JsonResource::collection($libros);
     }
 }

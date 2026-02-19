@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Libro;
-use App\Models\Loan;
 use App\Http\Requests\LoanRequest;
+use Illuminate\Http\Response;
 
 class LoanController extends Controller
 {
@@ -17,12 +17,6 @@ class LoanController extends Controller
         }
 
         $fecha_hora = now();
-        $loan = Loan::create([
-            'nombre_solicitante' => $request->nombre_solicitante,
-            'fecha_hora' => $fecha_hora,
-            'libro_id' => $libro->id,
-        ]);
-
         $libro->copias_disponibles -= 1;
         if ($libro->copias_disponibles == 0) {
             $libro->estado = false;
@@ -33,7 +27,6 @@ class LoanController extends Controller
             'message' => 'Préstamo registrado',
             'libro' => $libro,
             'fecha_hora' => $fecha_hora,
-            'loan_id' => $loan->id,
         ], 201);
     }
 }
